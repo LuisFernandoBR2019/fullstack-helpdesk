@@ -8,33 +8,34 @@ import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
-class Chamado : Serializable{
-
+class Chamado(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Int? = null
+    var id: Int? = null,
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    val dataAbertura : LocalDate = LocalDate.now()
+    var dataAbertura: LocalDate? = LocalDate.now(),
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    val dataFechamento : LocalDate? = null
+    var dataFechamento: LocalDate? = null,
 
-    val prioridade : Prioridade? = Prioridade.BAIXA
+    var prioridade: Prioridade? = Prioridade.BAIXA,
 
-    val status : Status? = Status.ABERTO
+    var status: Status? = Status.ABERTO,
 
-    val titulo : String? = null
+    var titulo: String? = null,
 
-    val observacoes : String? = null
+    var observacoes: String? = null,
 
     @ManyToOne
     @JoinColumn(name = "tecnico_id")
-    val tecnico : Tecnico? = null
+    var tecnico: Tecnico? = null,
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    val cliente : Cliente? = null
+    var cliente: Cliente? = null
+
+) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -67,6 +68,4 @@ class Chamado : Serializable{
         result = 31 * result + (cliente?.hashCode() ?: 0)
         return result
     }
-
-
 }
