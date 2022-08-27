@@ -1,19 +1,39 @@
 package com.luis.helpdesk.domain
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.luis.helpdesk.domain.enums.Prioridade
 import com.luis.helpdesk.domain.enums.Status
+import java.io.Serializable
 import java.time.LocalDate
+import javax.persistence.*
 
-class Chamado {
+@Entity
+class Chamado : Serializable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id : Int? = null
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     val dataAbertura : LocalDate = LocalDate.now()
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     val dataFechamento : LocalDate? = null
+
     val prioridade : Prioridade? = Prioridade.BAIXA
+
     val status : Status? = Status.ABERTO
+
     val titulo : String? = null
+
     val observacoes : String? = null
 
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
     val tecnico : Tecnico? = null
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     val cliente : Cliente? = null
 
     override fun equals(other: Any?): Boolean {
