@@ -1,8 +1,16 @@
 package com.luis.helpdesk.domain.enums
 
-enum class Perfil(codigo: Int, descricao: String) {
+import com.fasterxml.jackson.annotation.JsonProperty
 
-    ADMIN(0, "ROLE_ADMIN"), CLIENTE(1, "ROLE_CLIENTE"),
+enum class Perfil(
+    val codigo: Int,
+    val descricao: String
+) {
+    @JsonProperty("ADMIN")
+    ADMIN(0, "ROLE_ADMIN"),
+    @JsonProperty("CLIENTE")
+    CLIENTE(1, "ROLE_CLIENTE"),
+    @JsonProperty("TECNICO")
     TECNICO(2, "ROLE_TECNICO");
 
     open fun toEnum(cod: Int?): Perfil? {
@@ -10,7 +18,7 @@ enum class Perfil(codigo: Int, descricao: String) {
             return null
         }
         for (x in values()) {
-            if (cod == x.ordinal) {
+            if (cod == x.codigo) {
                 return x
             }
         }

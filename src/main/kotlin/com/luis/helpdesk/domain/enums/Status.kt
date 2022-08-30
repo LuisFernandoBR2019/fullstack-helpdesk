@@ -1,8 +1,17 @@
 package com.luis.helpdesk.domain.enums
 
-enum class Status(codigo: Int, descricao: String) {
+import com.fasterxml.jackson.annotation.JsonProperty
 
-    ABERTO(0, "ABERTO"), ANDAMENTO(1, "ANDAMENTO"),
+enum class Status(
+    val codigo: Int,
+    val descricao: String
+) {
+
+    @JsonProperty("ABERTO")
+    ABERTO(0, "ABERTO"),
+    @JsonProperty("ANDAMENTO")
+    ANDAMENTO(1, "ANDAMENTO"),
+    @JsonProperty("ENCERRADO")
     ENCERRADO(2, "ENCERRADO");
 
     open fun toEnum(cod: Int?): Status? {
@@ -10,7 +19,7 @@ enum class Status(codigo: Int, descricao: String) {
             return null
         }
         for (x in values()) {
-            if (cod == x.ordinal) {
+            if (cod == x.codigo) {
                 return x
             }
         }

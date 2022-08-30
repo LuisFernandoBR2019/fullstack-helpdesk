@@ -3,6 +3,7 @@ package com.luis.helpdesk.services
 import com.luis.helpdesk.domain.Chamado
 import com.luis.helpdesk.domain.Cliente
 import com.luis.helpdesk.domain.Tecnico
+import com.luis.helpdesk.domain.enums.Perfil
 import com.luis.helpdesk.domain.enums.Prioridade
 import com.luis.helpdesk.domain.enums.Status
 import com.luis.helpdesk.repositories.ChamadoRepository
@@ -10,7 +11,6 @@ import com.luis.helpdesk.repositories.ClienteRepository
 import com.luis.helpdesk.repositories.TecnicoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class DBService {
@@ -26,9 +26,11 @@ class DBService {
 
 
     fun instanciaDB() {
-        val tecnico: Tecnico = Tecnico().toEntity(null, "Luis", "12234568549", "nando@kotlin.com", "123")
+        val tecnico = Tecnico(null, "Luis", "12234568549", "nando@kotlin.com", "123")
+        tecnico.addPerfil(perfil = Perfil.TECNICO)
 
-        val cliente = Cliente().toEntity(null, "Diana", "15998526458", "diana@kotlin.com", "321")
+        val cliente = Cliente(null, "Diana", "15998526458", "diana@kotlin.com", "321")
+        cliente.addPerfil(perfil = Perfil.CLIENTE)
 
         val chamado = Chamado(
             null,
@@ -39,8 +41,8 @@ class DBService {
             tecnico = tecnico,
             cliente = cliente
         )
-        tecnicoRepository.saveAll(Arrays.asList(tecnico))
-        clienteRepository.saveAll(Arrays.asList(cliente))
-        chamadoRepository.saveAll(Arrays.asList(chamado))
+        tecnicoRepository.save(tecnico)
+        clienteRepository.save(cliente)
+        chamadoRepository.save(chamado)
     }
 }

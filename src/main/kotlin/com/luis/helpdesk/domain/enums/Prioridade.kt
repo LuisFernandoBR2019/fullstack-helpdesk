@@ -1,8 +1,19 @@
 package com.luis.helpdesk.domain.enums
 
-enum class Prioridade(codigo: Int, descricao: String) {
+import com.fasterxml.jackson.annotation.JsonProperty
 
-    BAIXA(0, "BAIXA"), MEDIA(1, "MEDIA"),
+enum class Prioridade(
+    val codigo: Int,
+    val descricao: String
+) {
+
+    @JsonProperty("BAIXA")
+    BAIXA(0, "BAIXA"),
+
+    @JsonProperty("MEDIA")
+    MEDIA(1, "MEDIA"),
+
+    @JsonProperty("ALTA")
     ALTA(2, "ALTA");
 
     open fun toEnum(cod: Int?): Prioridade? {
@@ -10,7 +21,7 @@ enum class Prioridade(codigo: Int, descricao: String) {
             return null
         }
         for (x in values()) {
-            if (cod == x.ordinal) {
+            if (cod == x.codigo) {
                 return x
             }
         }

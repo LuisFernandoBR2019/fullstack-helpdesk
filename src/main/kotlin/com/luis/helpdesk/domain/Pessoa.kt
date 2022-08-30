@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import com.luis.helpdesk.domain.enums.Perfil
 import java.io.Serializable
 import java.time.LocalDate
-import java.util.stream.Collectors
 import javax.persistence.*
 
 @Entity
@@ -30,10 +29,8 @@ abstract class Pessoa(
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected open var dataCriacao: LocalDate? = LocalDate.now()
 ) : Serializable {
-    fun getPerfisMap() =
-        perfis?.stream()?.map { x -> Perfil.valueOf(x.toString()).toEnum(x) }?.collect(Collectors.toSet())
 
     fun addPerfil(perfil: Perfil) {
-        this.perfis?.add(perfil.ordinal)
+        this.perfis?.add(perfil.codigo)
     }
 }
