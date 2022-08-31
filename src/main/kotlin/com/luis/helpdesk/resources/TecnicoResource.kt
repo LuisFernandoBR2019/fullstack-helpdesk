@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.stream.Collectors
 
 @RestController
 @RequestMapping("/tecnicos")
@@ -21,5 +22,12 @@ class TecnicoResource {
         val obj = tecnicoService.findById(id)
 
         return ResponseEntity.ok().body(TecnicoDTO(obj))
+    }
+
+    @GetMapping
+    fun findAll(): ResponseEntity<List<TecnicoDTO>> {
+        val list = tecnicoService.findAll()
+        val listDTO = list.stream().map { TecnicoDTO(it) }.collect(Collectors.toList())
+        return ResponseEntity.ok().body(listDTO)
     }
 }

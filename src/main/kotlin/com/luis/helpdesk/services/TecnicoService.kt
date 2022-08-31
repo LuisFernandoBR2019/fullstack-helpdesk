@@ -18,4 +18,7 @@ class TecnicoService {
         return obj.orElseThrow { ObjectNotFoundException("Objeto não encontrado id:$id", null) }
     }
 
+    fun findAll(): List<Tecnico> = tecnicoRepository.findAll()
+
+
 }
