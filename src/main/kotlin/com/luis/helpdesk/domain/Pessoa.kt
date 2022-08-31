@@ -10,24 +10,24 @@ import javax.persistence.*
 abstract class Pessoa(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected open var id: Int? = null,
+    open var id: Int? = null,
 
-    protected open var nome: String? = null,
-
-    @Column(unique = true)
-    protected open var cpf: String? = null,
+    open var nome: String? = null,
 
     @Column(unique = true)
-    protected open var email: String? = null,
+    open var cpf: String? = null,
 
-    protected open var senha: String? = null,
+    @Column(unique = true)
+    open var email: String? = null,
+
+    open var senha: String? = null,
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
-    protected open var perfis: MutableSet<Int> = HashSet(),
+    open var perfis: MutableSet<Int> = HashSet(),
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    protected open var dataCriacao: LocalDate? = LocalDate.now()
+    open var dataCriacao: LocalDate? = LocalDate.now()
 ) : Serializable {
 
     fun addPerfil(perfil: Perfil) {
