@@ -1,6 +1,7 @@
 package com.luis.helpdesk.services
 
 import com.luis.helpdesk.domain.Tecnico
+import com.luis.helpdesk.domain.dtos.TecnicoDTO
 import com.luis.helpdesk.domain.exceptions.ObjectNotFoundException
 import com.luis.helpdesk.repositories.TecnicoRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,11 +15,15 @@ class TecnicoService {
     private lateinit var tecnicoRepository: TecnicoRepository
 
     fun findById(id: Int): Tecnico {
-        var obj: Optional<Tecnico> = tecnicoRepository.findById(id)
+        val obj: Optional<Tecnico> = tecnicoRepository.findById(id)
         return obj.orElseThrow { ObjectNotFoundException("Objeto não encontrado id:$id", null) }
     }
 
     fun findAll(): List<Tecnico> = tecnicoRepository.findAll()
+    fun save(tecnicoDto: TecnicoDTO): Tecnico {
+        tecnicoDto.id = null
+        return tecnicoRepository.save(Tecnico(tecnicoDto))
+    }
 
 
 }

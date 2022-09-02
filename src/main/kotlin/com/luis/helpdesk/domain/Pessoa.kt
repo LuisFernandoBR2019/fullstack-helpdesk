@@ -24,7 +24,7 @@ abstract class Pessoa(
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
-    open var perfis: MutableSet<Int> = HashSet(),
+    open var perfis: MutableSet<Int>? = HashSet(),
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     open var dataCriacao: LocalDate? = LocalDate.now()

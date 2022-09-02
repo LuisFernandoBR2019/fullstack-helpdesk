@@ -26,10 +26,10 @@ class DBService {
 
 
     fun instanciaDB() {
-        val tecnico = Tecnico(null, "Luis", "12234568549", "nando@kotlin.com", "123")
+        val tecnico = Tecnico(null, "Luis", "12234568549", "nando@kotlin.com", "123", null, null)
         tecnico.addPerfil(perfil = Perfil.TECNICO)
 
-        val cliente = Cliente(null, "Diana", "15998526458", "diana@kotlin.com", "321")
+        val cliente = Cliente(null, "Diana", "15998526458", "diana@kotlin.com", "321", null, null)
         cliente.addPerfil(perfil = Perfil.CLIENTE)
 
         val chamado = Chamado(
