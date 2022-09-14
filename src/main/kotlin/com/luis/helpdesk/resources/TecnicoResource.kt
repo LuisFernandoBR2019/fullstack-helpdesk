@@ -37,4 +37,17 @@ class TecnicoResource {
         val uri: URI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.id).toUri()
         return ResponseEntity.created(uri).build()
     }
+
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: Int, @Valid @RequestBody tecnicoDTO: TecnicoDTO): ResponseEntity<TecnicoDTO> {
+        val tecnico = tecnicoService.update(id, tecnicoDTO)
+        return ResponseEntity.ok().body(TecnicoDTO(tecnico))
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Int): ResponseEntity<TecnicoDTO> {
+        tecnicoService.delete(id)
+        return ResponseEntity.noContent().build()
+    }
+
 }

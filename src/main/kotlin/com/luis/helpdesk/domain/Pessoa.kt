@@ -2,6 +2,7 @@ package com.luis.helpdesk.domain
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.luis.helpdesk.domain.enums.Perfil
+import org.hibernate.validator.constraints.br.CPF
 import java.io.Serializable
 import java.time.LocalDate
 import javax.persistence.*
@@ -14,6 +15,7 @@ abstract class Pessoa(
 
     open var nome: String? = null,
 
+    @CPF
     @Column(unique = true)
     open var cpf: String? = null,
 
