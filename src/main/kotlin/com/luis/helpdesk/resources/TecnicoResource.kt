@@ -49,5 +49,4 @@ class TecnicoResource {
         tecnicoService.delete(id)
         return ResponseEntity.noContent().build()
     }
-
 }
