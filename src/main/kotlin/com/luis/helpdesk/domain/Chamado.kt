@@ -29,7 +29,7 @@ class Chamado(
 
     @ManyToOne
     @JoinColumn(name = "tecnico_id")
-    var tecnico: Cliente? = null,
+    var tecnico: Tecnico? = null,
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
