@@ -1,16 +1,12 @@
-package com.luis.helpdesk.domain
+package com.luis.helpdesk.domain.dtos
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.luis.helpdesk.domain.enums.Prioridade
-import com.luis.helpdesk.domain.enums.Status
+import com.luis.helpdesk.domain.Chamado
 import java.io.Serializable
 import java.time.LocalDate
-import javax.persistence.*
 
-@Entity
-class Chamado(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+class ChamadoDTO(
+
     var id: Int? = null,
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -19,29 +15,36 @@ class Chamado(
     @JsonFormat(pattern = "dd/MM/yyyy")
     var dataFechamento: LocalDate? = null,
 
-    var prioridade: Prioridade? = Prioridade.BAIXA,
+    var prioridade: Int? = null,
 
-    var status: Status? = Status.ABERTO,
+    var status: Int? = null,
 
     var titulo: String? = null,
 
     var observacoes: String? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "tecnico_id")
-    var tecnico: Cliente? = null,
+    var tecnico: Int? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    var cliente: Cliente? = null
-
+    var cliente: Int? = null
 ) : Serializable {
+
+    constructor(chamado: Chamado) : this(
+        id = chamado.id,
+        dataAbertura = chamado.dataAbertura,
+        dataFechamento = chamado.dataFechamento,
+        prioridade = chamado.prioridade?.codigo,
+        status = chamado.status?.codigo,
+        titulo = chamado.titulo,
+        observacoes = chamado.observacoes,
+        tecnico = chamado.tecnico?.id,
+        cliente = chamado.cliente?.id
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Chamado
+        other as ChamadoDTO
 
         if (id != other.id) return false
         if (dataAbertura != other.dataAbertura) return false
@@ -58,14 +61,14 @@ class Chamado(
 
     override fun hashCode(): Int {
         var result = id ?: 0
-        result = 31 * result + dataAbertura.hashCode()
+        result = 31 * result + (dataAbertura?.hashCode() ?: 0)
         result = 31 * result + (dataFechamento?.hashCode() ?: 0)
-        result = 31 * result + (prioridade?.hashCode() ?: 0)
-        result = 31 * result + (status?.hashCode() ?: 0)
+        result = 31 * result + (prioridade ?: 0)
+        result = 31 * result + (status ?: 0)
         result = 31 * result + (titulo?.hashCode() ?: 0)
         result = 31 * result + (observacoes?.hashCode() ?: 0)
-        result = 31 * result + (tecnico?.hashCode() ?: 0)
-        result = 31 * result + (cliente?.hashCode() ?: 0)
+        result = 31 * result + (tecnico ?: 0)
+        result = 31 * result + (cliente ?: 0)
         return result
     }
 }
