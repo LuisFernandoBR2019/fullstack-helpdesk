@@ -3,7 +3,6 @@ package com.luis.helpdesk.services
 import com.luis.helpdesk.domain.Chamado
 import com.luis.helpdesk.domain.Cliente
 import com.luis.helpdesk.domain.Tecnico
-import com.luis.helpdesk.domain.enums.Perfil
 import com.luis.helpdesk.domain.enums.Prioridade
 import com.luis.helpdesk.domain.enums.Status
 import com.luis.helpdesk.repositories.ChamadoRepository
@@ -26,11 +25,9 @@ class DBService {
 
 
     fun instanciaDB() {
-        val tecnico = Tecnico(null, "Luis", "12234568549", "nando@kotlin.com", "123", null, null)
-        tecnico.addPerfil(perfil = Perfil.TECNICO)
+        val tecnico = Tecnico(null, "Luis", "12234568549", "nando@kotlin.com", "123")
 
-        val cliente = Cliente(null, "Diana", "15998526458", "diana@kotlin.com", "321", null, null)
-        cliente.addPerfil(perfil = Perfil.CLIENTE)
+        val cliente = Cliente(null, "Diana", "15998526458", "diana@kotlin.com", "321")
 
         val chamado = Chamado(
             null,

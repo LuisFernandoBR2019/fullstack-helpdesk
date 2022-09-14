@@ -32,7 +32,12 @@ abstract class Pessoa(
     open var dataCriacao: LocalDate? = LocalDate.now()
 ) : Serializable {
 
+    init {
+        addPerfil(Perfil.CLIENTE)
+    }
+
     fun addPerfil(perfil: Perfil) {
         this.perfis?.add(perfil.codigo)
     }
+
 }
