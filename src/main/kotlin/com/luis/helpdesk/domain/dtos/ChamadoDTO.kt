@@ -25,7 +25,11 @@ class ChamadoDTO(
 
     var tecnico: Int? = null,
 
-    var cliente: Int? = null
+    var cliente: Int? = null,
+
+    var nomeTecnico: String? = null,
+
+    var nomeCliente: String? = null
 ) : Serializable {
 
     constructor(chamado: Chamado) : this(
@@ -37,7 +41,9 @@ class ChamadoDTO(
         titulo = chamado.titulo,
         observacoes = chamado.observacoes,
         tecnico = chamado.tecnico?.id,
-        cliente = chamado.cliente?.id
+        cliente = chamado.cliente?.id,
+        nomeTecnico = chamado.tecnico?.nome,
+        nomeCliente = chamado.cliente?.nome
     )
 
     override fun equals(other: Any?): Boolean {
@@ -55,6 +61,8 @@ class ChamadoDTO(
         if (observacoes != other.observacoes) return false
         if (tecnico != other.tecnico) return false
         if (cliente != other.cliente) return false
+        if (nomeTecnico != other.nomeTecnico) return false
+        if (nomeCliente != other.nomeCliente) return false
 
         return true
     }
@@ -69,6 +77,10 @@ class ChamadoDTO(
         result = 31 * result + (observacoes?.hashCode() ?: 0)
         result = 31 * result + (tecnico ?: 0)
         result = 31 * result + (cliente ?: 0)
+        result = 31 * result + (nomeTecnico?.hashCode() ?: 0)
+        result = 31 * result + (nomeCliente?.hashCode() ?: 0)
         return result
     }
+
+
 }
