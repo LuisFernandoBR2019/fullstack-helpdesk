@@ -1,6 +1,7 @@
 package com.luis.helpdesk.domain
 
 import com.fasterxml.jackson.annotation.JsonFormat
+import com.luis.helpdesk.domain.dtos.ChamadoDTO
 import com.luis.helpdesk.domain.enums.Prioridade
 import com.luis.helpdesk.domain.enums.Status
 import java.io.Serializable
@@ -36,6 +37,16 @@ class Chamado(
     var cliente: Cliente? = null
 
 ) : Serializable {
+
+    constructor(chamadoDTO: ChamadoDTO): this(
+        id = chamadoDTO.id,
+        dataAbertura = chamadoDTO.dataAbertura,
+        dataFechamento = chamadoDTO.dataFechamento,
+        prioridade = Prioridade.toEnum(chamadoDTO.prioridade),
+        status = Status.toEnum(chamadoDTO.status),
+        titulo = chamadoDTO.titulo,
+        observacoes = chamadoDTO.observacoes
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

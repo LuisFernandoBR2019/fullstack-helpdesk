@@ -19,8 +19,8 @@ class ClienteService {
     @Autowired
     private lateinit var pessoaRepository: PessoaRepository
 
-    fun findById(id: Int): Cliente {
-        val obj: Optional<Cliente> = clienteRepository.findById(id)
+    fun findById(id: Int?): Cliente {
+        val obj: Optional<Cliente> = clienteRepository.findById(id!!)
         return obj.orElseThrow { ObjectNotFoundException("Objeto não encontrado id:$id", null) }
     }
 

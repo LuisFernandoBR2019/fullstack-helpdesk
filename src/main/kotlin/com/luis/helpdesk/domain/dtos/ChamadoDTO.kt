@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import com.luis.helpdesk.domain.Chamado
 import java.io.Serializable
 import java.time.LocalDate
+import javax.validation.constraints.NotNull
 
 class ChamadoDTO(
 
@@ -15,16 +16,22 @@ class ChamadoDTO(
     @JsonFormat(pattern = "dd/MM/yyyy")
     var dataFechamento: LocalDate? = null,
 
+    @field:NotNull(message = "O campo Prioridade é requerido")
     var prioridade: Int? = null,
 
+    @field:NotNull(message = "O campo Status é requerido")
     var status: Int? = null,
 
+    @field:NotNull(message = "O campo Titulo é requerido")
     var titulo: String? = null,
 
+    @field:NotNull(message = "O campo Observações é requerido")
     var observacoes: String? = null,
 
+    @field:NotNull(message = "O campo Técnico é requerido")
     var tecnico: Int? = null,
 
+    @field:NotNull(message = "O campo Cliente é requerido")
     var cliente: Int? = null,
 
     var nomeTecnico: String? = null,

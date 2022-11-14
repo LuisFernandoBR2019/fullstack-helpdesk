@@ -19,8 +19,8 @@ class TecnicoService {
     @Autowired
     private lateinit var pessoaRepository: PessoaRepository
 
-    fun findById(id: Int): Tecnico {
-        val obj: Optional<Tecnico> = tecnicoRepository.findById(id)
+    fun findById(id: Int?): Tecnico {
+        val obj: Optional<Tecnico> = tecnicoRepository.findById(id!!)
         return obj.orElseThrow { ObjectNotFoundException("Objeto não encontrado id:$id", null) }
     }
 

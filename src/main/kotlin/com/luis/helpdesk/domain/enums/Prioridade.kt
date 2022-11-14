@@ -1,23 +1,25 @@
 package com.luis.helpdesk.domain.enums
 
 enum class Prioridade(
-    val codigo: Int,
-    val descricao: String
+    val codigo: Int? = null,
+    val descricao: String? = null
 ) {
 
     BAIXA(0, "BAIXA"),
     MEDIA(1, "MEDIA"),
     ALTA(2, "ALTA");
 
-    open fun toEnum(cod: Int?): Prioridade? {
-        if (cod == null) {
-            return null
-        }
-        for (x in values()) {
-            if (cod == x.codigo) {
-                return x
+    companion object{
+        fun toEnum(cod: Int?): Prioridade? {
+            if (cod == null) {
+                return null
             }
+            for (x in values()) {
+                if (cod == x.codigo) {
+                    return x
+                }
+            }
+            throw IllegalArgumentException("Prioridade inválido")
         }
-        throw IllegalArgumentException("Prioridade inválido")
     }
 }

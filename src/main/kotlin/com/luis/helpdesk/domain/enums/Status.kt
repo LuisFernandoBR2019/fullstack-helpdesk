@@ -1,23 +1,25 @@
 package com.luis.helpdesk.domain.enums
 
 enum class Status(
-    val codigo: Int,
-    val descricao: String
+    val codigo: Int? = null,
+    val descricao: String? = null
 ) {
 
     ABERTO(0, "ABERTO"),
     ANDAMENTO(1, "ANDAMENTO"),
     ENCERRADO(2, "ENCERRADO");
 
-    open fun toEnum(cod: Int?): Status? {
-        if (cod == null) {
-            return null
-        }
-        for (x in values()) {
-            if (cod == x.codigo) {
-                return x
+    companion object{
+        fun toEnum(cod: Int?): Status? {
+            if (cod == null) {
+                return null
             }
+            for (x in values()) {
+                if (cod == x.codigo) {
+                    return x
+                }
+            }
+            throw IllegalArgumentException("Status inválido")
         }
-        throw IllegalArgumentException("Status inválido")
     }
 }
