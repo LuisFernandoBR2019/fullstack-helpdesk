@@ -7,6 +7,7 @@ import com.luis.helpdesk.repositories.ClienteRepository
 import com.luis.helpdesk.repositories.PessoaRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -19,6 +20,9 @@ class ClienteService {
     @Autowired
     private lateinit var pessoaRepository: PessoaRepository
 
+    @Autowired
+    private lateinit var encoder: BCryptPasswordEncoder
+
     fun findById(id: Int?): Cliente {
         val obj: Optional<Cliente> = clienteRepository.findById(id!!)
         return obj.orElseThrow { ObjectNotFoundException("Objeto não encontrado id:$id", null) }
@@ -28,6 +32,7 @@ class ClienteService {
 
     fun save(clienteDTO: ClienteDTO): Cliente {
         clienteDTO.id = null
+        clienteDTO.senha = encoder.encode(clienteDTO.senha)
         return clienteRepository.save(Cliente(clienteDTO))
     }
 

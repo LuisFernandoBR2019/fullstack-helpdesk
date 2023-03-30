@@ -7,6 +7,7 @@ import com.luis.helpdesk.repositories.PessoaRepository
 import com.luis.helpdesk.repositories.TecnicoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -19,6 +20,9 @@ class TecnicoService {
     @Autowired
     private lateinit var pessoaRepository: PessoaRepository
 
+    @Autowired
+    private lateinit var encoder: BCryptPasswordEncoder
+
     fun findById(id: Int?): Tecnico {
         val obj: Optional<Tecnico> = tecnicoRepository.findById(id!!)
         return obj.orElseThrow { ObjectNotFoundException("Objeto não encontrado id:$id", null) }
@@ -27,6 +31,7 @@ class TecnicoService {
     fun findAll(): List<Tecnico> = tecnicoRepository.findAll()
     fun save(tecnicoDto: TecnicoDTO): Tecnico {
         tecnicoDto.id = null
+        tecnicoDto.senha = encoder.encode(tecnicoDto.senha)
         return tecnicoRepository.save(Tecnico(tecnicoDto))
     }
 

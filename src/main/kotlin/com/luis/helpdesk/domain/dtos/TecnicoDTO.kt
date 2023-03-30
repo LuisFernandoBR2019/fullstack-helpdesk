@@ -6,7 +6,7 @@ import java.io.Serializable
 import java.time.LocalDate
 import javax.validation.constraints.NotNull
 
-class TecnicoDTO(
+data class TecnicoDTO(
 
     open var id: Int? = null,
 

@@ -6,7 +6,7 @@ import java.io.Serializable
 import java.time.LocalDate
 import javax.validation.constraints.NotNull
 
-class ClienteDTO(
+data class ClienteDTO(
     open var id: Int? = null,
 
     @field:NotNull(message = "O campo Nome é requerido")
